@@ -1,66 +1,37 @@
-Welcome to the AWS CodeStar sample web service
-==============================================
+# Mr.M Coffee 
 
-This sample code helps get you started with a simple Express web service
-deployed by AWS CloudFormation to AWS Lambda and Amazon API Gateway.
+## 概要
 
-What's Here
------------
+### 目的
 
-This sample includes:
+### 前提
 
-* README.md - this file
-* buildspec.yml - this file is used by AWS CodeBuild to package your
-  service for deployment to AWS Lambda
-* app.js - this file contains the sample Node.js code for the web service
-* index.js - this file contains the AWS Lambda handler code
-* template.yml - this file contains the AWS Serverless Application Model (AWS SAM) used
-  by AWS CloudFormation to deploy your service to AWS Lambda and Amazon API
-  Gateway.
-* tests/ - this directory contains unit tests for your application
-* template-configuration.json - this file contains the project ARN with placeholders used for tagging resources with the project ID
+| ソフトウェア   | バージョン | 備考 |
+| :------------- | :--------- | :--- |
+| nodejs         | 8.10.0      |      |
+| docker         | 18.09.2     |      |
+| docker-compose | 1.23.2      |      |
+| aws-cli        | 1.16.127    |      |
+| sam-cli        | 0.13.0    |      |
 
-What Do I Do Next?
-------------------
+## 構成
 
-If you have checked out a local copy of your repository you can start making
-changes to the sample code.  We suggest making a small change to app.js first,
-so you can see how changes pushed to your project's repository are automatically
-picked up by your project pipeline and deployed to AWS Lambda and Amazon API Gateway.
-(You can watch the pipeline progress on your AWS CodeStar project dashboard.)
-Once you've seen how that works, start developing your own code, and have fun!
+- [構築](#構築)
+- [配置](#配置)
+- [運用](#運用)
 
-To run your tests locally, go to the root directory of the
-sample code and run the `npm test` command, which
-AWS CodeBuild also runs through your `buildspec.yml` file.
+## 詳細
 
-To test your new code during the release process, modify the existing tests or
-add tests to the tests directory. AWS CodeBuild will run the tests during the
-build stage of your project pipeline. You can find the test results
-in the AWS CodeBuild console.
+### 構築
 
-Learn more about AWS CodeBuild and how it builds and tests your application here:
-https://docs.aws.amazon.com/codebuild/latest/userguide/concepts.html
+**[⬆ back to top](#構成)**
 
-Learn more about AWS Serverless Application Model (AWS SAM) and how it works here:
-https://github.com/awslabs/serverless-application-model/blob/master/HOWTO.md
+### 配置
 
-AWS Lambda Developer Guide:
-http://docs.aws.amazon.com/lambda/latest/dg/deploying-lambda-apps.html
+**[⬆ back to top](#構成)**
 
-Learn more about AWS CodeStar by reading the user guide, and post questions and
-comments about AWS CodeStar on our forum.
+### 運用
 
-User Guide: http://docs.aws.amazon.com/codestar/latest/userguide/welcome.html
+**[⬆ back to top](#構成)**
 
-Forum: https://forums.aws.amazon.com/forum.jspa?forumID=248
-
-What Should I Do Before Running My Project in Production?
-------------------
-
-AWS recommends you review the security best practices recommended by the framework
-author of your selected sample application before running it in production. You
-should also regularly review and apply any available patches or associated security
-advisories for dependencies used within your application.
-
-Best Practices: https://docs.aws.amazon.com/codestar/latest/userguide/best-practices.html?icmpid=docs_acs_rm_sec
+## 参照
