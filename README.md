@@ -83,6 +83,13 @@ npm run aws:sam:release:dev
 
 ### 運用
 
+#### アプリケーションの廃棄
+
+```bash
+npm run aws:sam:destroy
+npm run aws:s3:destroy
+```
+
 **[⬆ back to top](#構成)**
 
 ## 参照
