@@ -44,6 +44,7 @@ npx browser-sync init
 AWS SAM CLI のインストールおよびアップデート
  
  ```bash
+ pip install awscli
  pip install --user aws-sam-cli
  pip install --user --upgrade aws-sam-cli
  ```
@@ -51,6 +52,32 @@ AWS SAM CLI のインストールおよびアップデート
 **[⬆ back to top](#構成)**
 
 ### 配置
+
+#### 開発バケットのセットアップ
+
+```bash
+npm run aws:s3:create
+```
+
+#### 開発Lambdaファンクションのビルド
+
+```bash
+npm run aws:sam:build
+```
+
+#### 開発Lambdaファンクションのデプロイ
+
+```bash
+npm run aws:sam:package
+npm run aws:sam:deploy
+npm run aws:sam:describe
+```
+
+#### 開発Lambdaファンクションのリリース
+
+```bash
+npm run aws:sam:release:dev
+```
 
 **[⬆ back to top](#構成)**
 
