@@ -4,10 +4,13 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "express": "4.16.2",
-        "aws-serverless-express": "3.1.3"
+        "aws-serverless-express": "3.1.3",
+        "ejs": "^2.6.1",
+        "express": "^4.16.2"
     },
     "devDependencies": {
+        "browser-sync": "^2.26.3",
+        "connect-browser-sync": "^2.1.0",
         "cpx": "^1.5.0",
         "foreman": "^3.0.1",
         "mocha": "5.0.0",
@@ -19,6 +22,7 @@
     },
     "scripts": {
         "start": "nf start -j Procfile",
-        "test": "mocha --recursive tests"
+        "test": "mocha --recursive tests",
+        "app:web": "browser-sync start --config bs-config.js"
     }
 }

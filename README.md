@@ -31,6 +31,14 @@ npm install npm-run-all watch foreman cpx rimraf --save-dev
 touch Procfile
 ```
 
+#### 開発Webサーバーのセットアップ
+
+```bash
+npm install express ejs --save
+npm install --save-dev browser-sync connect-browser-sync
+npx browser-sync init
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
