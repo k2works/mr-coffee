@@ -39,6 +39,15 @@ npm install --save-dev browser-sync connect-browser-sync
 npx browser-sync init
 ```
 
+#### 開発Apiサーバーのセットアップ
+ 
+AWS SAM CLI のインストールおよびアップデート
+ 
+ ```bash
+ pip install --user aws-sam-cli
+ pip install --user --upgrade aws-sam-cli
+ ```
+ 
 **[⬆ back to top](#構成)**
 
 ### 配置

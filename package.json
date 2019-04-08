@@ -23,6 +23,7 @@
     "scripts": {
         "start": "nf start -j Procfile",
         "test": "mocha --recursive tests",
-        "app:web": "browser-sync start --config bs-config.js"
+        "app:web": "browser-sync start --config bs-config.js",
+        "app:api": "sam local start-api --host 0.0.0.0 --port 4000"
     }
 }
