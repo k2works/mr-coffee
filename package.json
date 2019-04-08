@@ -5,8 +5,9 @@
     "private": true,
     "dependencies": {
         "aws-serverless-express": "3.1.3",
+        "body-parser": "^1.18.3",
         "ejs": "^2.6.1",
-        "express": "^4.16.2"
+        "express": "^4.16.4"
     },
     "devDependencies": {
         "browser-sync": "^2.26.3",
@@ -14,6 +15,7 @@
         "cpx": "^1.5.0",
         "foreman": "^3.0.1",
         "mocha": "5.0.0",
+        "nodemon": "^1.18.10",
         "npm-run-all": "^4.1.5",
         "rimraf": "^2.6.3",
         "supertest": "3.0.0",
@@ -30,9 +32,12 @@
     },
     "scripts": {
         "start": "nf start -j Procfile",
+        "build": "npm-run-all aws:sam:build",
         "test": "mocha --recursive tests",
+        "watch": "watch 'npm run build' ./src ",
         "app:web": "browser-sync start --config bs-config.js",
         "app:api": "sam local start-api --host 0.0.0.0 --port 4000",
+        "app:server": "PORT=5000 nodemon --inspect server.js",
         "aws:s3:create": "aws s3 mb s3://$npm_package_config_s3_bucket --region $npm_package_config_region",
         "aws:s3:destroy": "aws s3 rb s3://$npm_package_config_s3_bucket --force --region $npm_package_config_region",
         "aws:sam:build": "sam build",
