@@ -24,6 +24,13 @@
 
 ### 構築
 
+#### 開発パッケージのセットアップ
+
+```bash
+npm install npm-run-all watch foreman cpx rimraf --save-dev
+touch Procfile
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
