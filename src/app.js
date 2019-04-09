@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const IndexController = require('./controller/IndexController');
 const HelloController = require('./controller/HelloController');
+const ContactController = require('./controller/ContactController');
 
 // CORSを許可する
 app.use(function(req, res, next) {
@@ -29,6 +30,7 @@ const INDEX = '/';
 const HELLO = '/hello';
 
 app.use(INDEX, IndexController);
+app.use(INDEX, ContactController);
 app.use(HELLO, HelloController);
 
 // Export your Express configuration so that it can be consumed by the Lambda handler
