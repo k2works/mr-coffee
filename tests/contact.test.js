@@ -21,6 +21,7 @@ describe('Test contact controller', function () {
     AWSMock.mock('DynamoDB', 'createTable', function (params, callback){
       callback(null, "successfully create table in database");
     });
+    AWSMock.mock('DynamoDB.DocumentClient', 'put', 'message');
   });
 
   it('問い合わせテーブルを作る', function (done) {

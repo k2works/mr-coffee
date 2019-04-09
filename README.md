@@ -101,6 +101,7 @@ npm run aws:sam:release:dev
 #### データベースのセットアップ
 
 ```bash
+npm install --save uuid
 npm install --save-dev aws-sdk-mock
 npm run db:setup
 ```
