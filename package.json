@@ -36,7 +36,8 @@
         "region": "ap-northeast-1",
         "chrome_driver_ver": "73.0.3683.103",
         "local_network": "lambda-local",
-        "local_db": "dynamodb"
+        "local_db": "dynamodb",
+        "api_url": "https://ebodx7rgs7.execute-api.ap-northeast-1.amazonaws.com/Prod"
     },
     "scripts": {
         "start": "nf start -j Procfile",
@@ -50,7 +51,7 @@
         "test:e2e:package:chrome": "webdriver-manager update --versions.chrome $npm_package_config_chrome_driver_ver",
         "watch": "watch 'npm run build' ./src ",
         "app:web": "browser-sync start --config bs-config.js",
-        "app:api": "sam local start-api --host 0.0.0.0 --port 4000",
+        "app:api": "sam local start-api --host 0.0.0.0 --port 4000 --region $npm_package_config_region",
         "app:server": "PORT=5000 nodemon --inspect server.js",
         "db:setup": "npm-run-all db:setup:*",
         "db:setup:network": "docker network create $npm_package_config_local_network",
@@ -66,7 +67,7 @@
         "aws:s3:destroy": "aws s3 rb s3://$npm_package_config_s3_bucket --force --region $npm_package_config_region",
         "aws:sam:build": "sam build",
         "aws:sam:package": "sam package --template-file .aws-sam/build/template.yaml --s3-bucket $npm_package_config_s3_bucket --output-template-file .aws-sam/build/packaged.yaml",
-        "aws:sam:deploy": "sam deploy --template-file .aws-sam/build/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM --parameter-overrides CodeDeployRole=$npm_package_config_code_deploy_role ProjectId=$npm_package_config_project_id Stage=$npm_package_config_stage --region $npm_package_config_region",
+        "aws:sam:deploy": "sam deploy --template-file .aws-sam/build/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM --parameter-overrides CodeDeployRole=$npm_package_config_code_deploy_role ProjectId=$npm_package_config_project_id Stage=$npm_package_config_stage ApiUrl=$npm_package_config_api_url --region $npm_package_config_region",
         "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
         "aws:sam:release:dev": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
         "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",

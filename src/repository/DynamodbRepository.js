@@ -1,5 +1,5 @@
 const config = require('../appConfigDynamodb');
-const contact = require('../model/contact');
+const contact = require('../model/Contact');
 
 exports.create = async function() {
   const AWS = config.configAws();
