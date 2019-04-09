@@ -21,6 +21,11 @@ exports.configAws = function() {
   return AWS;
 };
 
+exports.createDynamoDd = function() {
+  setupAws();
+  return new AWS.DynamoDB();
+};
+
 exports.createDynamoDdClient = function() {
   setupAws();
   return new AWS.DynamoDB.DocumentClient();
