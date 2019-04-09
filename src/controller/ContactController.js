@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../appConfigDynamodb');
-const v4 = require('uuid/v4');
 const request = require('request');
+const config = require('../appConfigDynamodb');
+const contact = require('../model/Contact');
 
 router.get('/contact.html', function(req, res){
   res.render("contact.html", {message:''});
@@ -61,24 +61,8 @@ router.post('/api/create', async function(req, res) {
   let message = '';
   let data;
 
-  const contact = {
-    TableName: "Contacts",
-    KeySchema: [
-      {AttributeName: "id", KeyType: "HASH"},
-      {AttributeName: "name", KeyType: "RANGE"}
-    ],
-    AttributeDefinitions: [
-      {AttributeName: "id", AttributeType: "S"},
-      {AttributeName: "name", AttributeType: "S"}
-    ],
-    ProvisionedThroughput: {
-      ReadCapacityUnits: 1,
-      WriteCapacityUnits: 1
-    }
-  };
-
   try {
-    data = await dynamodb.createTable(contact).promise();
+    data = await dynamodb.createTable(contact.model).promise();
     console.log("Create table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせテーブルを作成しました"
   } catch (err) {
@@ -95,20 +79,16 @@ router.post('/api/save', async function(req, res) {
   const dynamodbClient = config.createDynamoDdClient();
   let message;
 
-  const params = {
-    TableName: "Contacts",
-    Item: {
-      "id": v4(),
-      "name": req.body.name,
-      "email": req.body.email,
-      "questionnaire": req.body.questionnaire,
-      "category": req.body.category,
-      "message": req.body.message,
-    }
+  const info = {
+    name: req.body.name,
+    email: req.body.email,
+    questionnaire: req.body.questionnaire,
+    category: req.body.category,
+    message: req.body.message,
   };
 
   try {
-    const data = await dynamodbClient.put(params).promise();
+    const data = await dynamodbClient.put(contact.create(info)).promise();
     console.log("Save table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせを送信しました"
   } catch (err) {
