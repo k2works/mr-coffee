@@ -82,7 +82,68 @@
         <div class="container">
             <h3 class="mb-3">お問い合わせフォーム</h3>
             <form>
-                （ここにフォームが入ります<!---->）
+                <div class="form-group row">
+                    <label for="name" class="col-md-3 col-form-label">
+                        お名前 <span class="badge badge-warning">必須</span>
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-md-3 col-form-label">
+                        メールアドレス <span class="badge badge-warning">必須</span>
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="email" required="email">
+                    </div>
+                </div>
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-md-3">
+                            Mr.M COFFEEを知ったきっかけ
+                        </legend>
+                        <div class="col-md-9">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="radio1" name="questionnaire" value="answer1">
+                                <label for="radio1" class="form-check-label">口コミ</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="radio2" name="questionnaire" value="answer2">
+                                <label for="radio2" class="form-check-label">検索エンジン</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" class="form-check-input" id="radio3" name="questionnaire" value="answer3">
+                                <label for="radio3" class="form-check-label">その他</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-group row">
+                    <label for="category" class="col-md-3 col-form-label">
+                        お問い合わせ <span class="badge badge-warning">必須</span>
+                    </label>
+                    <div class="col-md-9">
+                        <select name="category" id="category" class="form-control">
+                            <option value="category1">ご予約について</option>
+                            <option value="category2">委託販売について</option>
+                            <option value="category3">その他のお問い合わせ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="message" class="col-md-3 col-form-label">
+                        お問い合わせ内容 <span class="badge badge-warning">必須</span>
+                    </label>
+                    <div class="col-md-9">
+                        <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row justify-content-end">
+                    <div class="col-md-9">
+                        <button class="btn btn-primary" type="button">確認する</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
