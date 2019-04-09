@@ -7,7 +7,10 @@ router.get('/contact.html', function(req, res){
 });
 
 router.post('/api/create', async function(req, res) {
+  const dynamodb = config.createDynamoDd();
   let message = '';
+  let data;
+
   const contact = {
     TableName: "Contacts",
     KeySchema: [
@@ -24,16 +27,14 @@ router.post('/api/create', async function(req, res) {
     }
   };
 
-  const dynamodb = config.createDynamoDd();
-  dynamodb.createTable(contact, function (err, data) {
-    if (err) {
-      console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
-      message = "問い合わせテーブルを作成できませんでした"
-    } else {
-      console.log("Create table. Table description JSON:", JSON.stringify(data, null, 2));
-      message = "問い合わせテーブルを作成しました"
-    }
-  });
+  try {
+    data = await dynamodb.createTable(contact).promise();
+    console.log("Create table. Table description JSON:", JSON.stringify(data, null, 2));
+    message = "問い合わせテーブルを作成しました"
+  } catch (err) {
+    console.error("Unable to create table. Error JSON:", JSON.stringify(err, null, 2));
+    message = "問い合わせテーブルを作成できませんでした"
+  }
 
   res.send({
     "Message": message
