@@ -49,6 +49,25 @@ AWS SAM CLI のインストールおよびアップデート
  pip install --user --upgrade aws-sam-cli
  ```
  
+ ### 開発　テストのセットアップ
+ E2Eテストのセットアップ
+ 
+```bash
+npm install --save-dev nightwatch webdriver-manager
+./node_modules/.bin/webdriver-manager update
+./node_modules/.bin/webdriver-manager update --chrome
+mkdir tests/e2e
+mkdir tests/e2e/logs
+mkdir tests/e2e/reports
+mkdir tests/e2e/screenshots
+touch nightwatch.json
+```
+ 
+ E2Eテストの実行
+```bash
+npm run test:e2e
+```
+ 
 **[⬆ back to top](#構成)**
 
 ### 配置

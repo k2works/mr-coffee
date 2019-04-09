@@ -1,6 +1,6 @@
 {
-    "name": "express-HelloWorld",
-    "description": "Hello World ExpressJS WebService",
+    "name": "mr-mcoffee",
+    "description": "ExpressJS Demo site",
     "version": "0.0.1",
     "private": true,
     "dependencies": {
@@ -15,12 +15,14 @@
         "cpx": "^1.5.0",
         "foreman": "^3.0.1",
         "mocha": "5.0.0",
+        "nightwatch": "^1.0.19",
         "nodemon": "^1.18.10",
         "npm-run-all": "^4.1.5",
         "rimraf": "^2.6.3",
         "supertest": "3.0.0",
         "unit.js": "2.0.0",
-        "watch": "^1.0.2"
+        "watch": "^1.0.2",
+        "webdriver-manager": "^13.0.0"
     },
     "config": {
         "s3_bucket": "mr-mcoffee-harc",
@@ -28,12 +30,19 @@
         "code_deploy_role": "arn:aws:iam::411087959999:role/CodeStarWorker-mr-mcoffee-CodeDeploy",
         "project_id": "mr-mcoffee",
         "stage": "Development",
-        "region": "ap-northeast-1"
+        "region": "ap-northeast-1",
+        "chrome_driver_ver": "73.0.3683.103"
     },
     "scripts": {
         "start": "nf start -j Procfile",
         "build": "npm-run-all aws:sam:build",
-        "test": "mocha --recursive tests",
+        "test": "npm-run-all test:*",
+        "test:server": "mocha --recursive tests",
+        "test:e2e": "nightwatch tests/e2e",
+        "test:e2e:package": "npm-run-all test:e2e:package:*",
+        "test:e2e:package:clean": "webdriver-manager clean",
+        "test:e2e:package:update": "webdriver-manager update",
+        "test:e2e:package:chrome": "webdriver-manager update --versions.chrome $npm_package_config_chrome_driver_ver",
         "watch": "watch 'npm run build' ./src ",
         "app:web": "browser-sync start --config bs-config.js",
         "app:api": "sam local start-api --host 0.0.0.0 --port 4000",
@@ -45,6 +54,7 @@
         "aws:sam:deploy": "sam deploy --template-file .aws-sam/build/packaged.yaml --stack-name $npm_package_config_stack_name --capabilities CAPABILITY_NAMED_IAM --parameter-overrides CodeDeployRole=$npm_package_config_code_deploy_role ProjectId=$npm_package_config_project_id Stage=$npm_package_config_stage --region $npm_package_config_region",
         "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
         "aws:sam:release:dev": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
-        "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name"
+        "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",
+        "aws:codebuild:local": "docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e \"IMAGE_NAME=aws/codebuild/nodejs:8.11.0\" -e \"ARTIFACTS=/tmp\" -e \"SOURCE=$PWD\" amazon/aws-codebuild-local"
     }
 }
