@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const repository = require('../repository/DynamodbRepository');
 const service = require('../service/ContactService');
 
 router.get('/contact.html', function(req, res){
@@ -27,7 +26,7 @@ router.post('/api/create', async function(req, res) {
   let message;
 
   try {
-    const data = await repository.create();
+    const data = await service.createTable();
     console.log("Create table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせテーブルを作成しました"
   } catch (err) {
@@ -44,7 +43,7 @@ router.post('/api/drop', async function(req, res) {
   let message;
 
   try {
-    const data = await repository.drop();
+    const data = await service.dropTable();
     console.log("Drop table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせテーブルを削除しました"
   } catch (err) {
@@ -62,7 +61,7 @@ router.post('/api/save', async function(req, res) {
 
   try {
     const info = contactParams(req);
-    const data = await repository.save(info);
+    const data = await service.saveContactInfo(info);
     console.log("Save table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせを送信しました"
   } catch (err) {
