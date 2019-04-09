@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const request = require('request');
 const repository = require('../repository/DynamodbRepository');
+const service = require('../service/ContactService');
 
 router.get('/contact.html', function(req, res){
   res.render("contact.html", {message:''});
@@ -10,38 +10,10 @@ router.get('/contact.html', function(req, res){
 router.post('/contact', async function (req, res) {
   let data;
   let message;
-  let baseUrl;
-  const info = contactParams(req);
 
   try {
-    if (process.env.NODE_ENV !== 'production') {
-      baseUrl = 'http://localhost:5000';
-    } else {
-      baseUrl = 'https://ebodx7rgs7.execute-api.ap-northeast-1.amazonaws.com/Prod';
-    }
-
-    const headers = {
-      'Content-Type': 'application/json'
-    };
-
-    const options = {
-      url: `${baseUrl}/api/save`,
-      method: 'POST',
-      headers: headers,
-      json: true,
-      form: info
-    };
-
-    const apiCall = function (options) {
-      return new Promise((resolve, reject) => {
-        request(options, (err, res, body) => {
-          if (err) reject(err);
-          resolve(body)
-        });
-      });
-    };
-
-    data = await apiCall(options);
+    const info = contactParams(req);
+    data = await service.registContact(info);
     console.log("Save table. Table description JSON:", JSON.stringify(data, null, 2));
     message = data.Message;
   } catch (err) {
