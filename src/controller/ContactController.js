@@ -68,6 +68,23 @@ router.post('/api/create', async function(req, res) {
   });
 });
 
+router.post('/api/drop', async function(req, res) {
+  let message;
+
+  try {
+    const data = await repository.drop();
+    console.log("Drop table. Table description JSON:", JSON.stringify(data, null, 2));
+    message = "問い合わせテーブルを削除しました"
+  } catch (err) {
+    console.error("Unable to drop table. Error JSON:", JSON.stringify(err, null, 2));
+    message = "問い合わせテーブルを削除できませんでした"
+  }
+
+  res.send({
+    "Message": message
+  });
+});
+
 router.post('/api/save', async function(req, res) {
   let message;
 

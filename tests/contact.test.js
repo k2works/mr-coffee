@@ -21,6 +21,9 @@ describe('Test contact controller', function () {
     AWSMock.mock('DynamoDB', 'createTable', function (params, callback){
       callback(null, "successfully create table in database");
     });
+    AWSMock.mock('DynamoDB', 'deleteTable', function (params, callback){
+      callback(null, "successfully drop table in database");
+    });
     AWSMock.mock('DynamoDB.DocumentClient', 'put', 'message');
   });
 
@@ -35,6 +38,14 @@ describe('Test contact controller', function () {
   it('問い合わせ内容を送信する', function (done) {
     request.post('/api/save').send(info).expect(200).end(function (err, result) {
       test.string(result.body.Message).contains('問い合わせを送信しました');
+      test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
+      done(err);
+    });
+  });
+
+  it('問い合わせテーブルを削除する', function (done) {
+    request.post('/api/drop').expect(200).end(function (err, result) {
+      test.string(result.body.Message).contains('問い合わせテーブルを削除しました');
       test.value(result).hasHeader('content-type', 'application/json; charset=utf-8');
       done(err);
     });
