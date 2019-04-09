@@ -3,6 +3,7 @@ const app = express();
 const IndexController = require('./controller/IndexController');
 const HelloController = require('./controller/HelloController');
 const ContactController = require('./controller/ContactController');
+const AdminController = require('./controller/AdminController');
 
 // CORSを許可する
 app.use(function(req, res, next) {
@@ -28,10 +29,12 @@ app.engine('htm', require('ejs').renderFile);
 app.engine('html', require('ejs').renderFile);
 const INDEX = '/';
 const HELLO = '/hello';
+const ADMIN = '/admin';
 
 app.use(INDEX, IndexController);
 app.use(INDEX, ContactController);
 app.use(HELLO, HelloController);
+app.use(ADMIN, AdminController);
 
 // Export your Express configuration so that it can be consumed by the Lambda handler
 module.exports = app;

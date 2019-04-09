@@ -67,7 +67,14 @@ touch nightwatch.json
 ```bash
 npm run test:e2e
 ```
+
+### SBAdminの導入
  
+```bash
+npm install startbootstrap-sb-admin-2 --save-dev
+cp -r node_modules/startbootstrap-sb-admin-2 src/resources/templates/admin
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
