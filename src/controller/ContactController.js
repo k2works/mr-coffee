@@ -12,6 +12,8 @@ router.post('/contact', async function (req, res) {
   let data;
   let message;
   let baseUrl;
+  const info = contactParams(req);
+
   try {
     if (process.env.NODE_ENV !== 'production') {
       baseUrl = 'http://localhost:5000';
@@ -28,13 +30,7 @@ router.post('/contact', async function (req, res) {
       method: 'POST',
       headers: headers,
       json: true,
-      form: {
-        "name": req.body.name,
-        "email": req.body.email,
-        "questionnaire": req.body.questionnaire,
-        "category": req.body.category,
-        "message": req.body.message,
-      }
+      form: info
     };
 
     const apiCall = function (options) {
@@ -79,15 +75,8 @@ router.post('/api/save', async function(req, res) {
   const dynamodbClient = config.createDynamoDdClient();
   let message;
 
-  const info = {
-    name: req.body.name,
-    email: req.body.email,
-    questionnaire: req.body.questionnaire,
-    category: req.body.category,
-    message: req.body.message,
-  };
-
   try {
+    const info = contactParams(req);
     const data = await dynamodbClient.put(contact.create(info)).promise();
     console.log("Save table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせを送信しました"
@@ -100,5 +89,15 @@ router.post('/api/save', async function(req, res) {
    "Message": message
  })
 });
+
+const contactParams = (req) => {
+  return {
+    name: req.body.name,
+    email: req.body.email,
+    questionnaire: req.body.questionnaire,
+    category: req.body.category,
+    message: req.body.message,
+  };
+};
 
 module.exports = router;
