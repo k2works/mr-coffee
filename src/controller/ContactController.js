@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-const config = require('../appConfigDynamodb');
-const contact = require('../model/Contact');
+const repository = require('../repository/DynamodbRepository');
 
 router.get('/contact.html', function(req, res){
   res.render("contact.html", {message:''});
@@ -53,12 +52,10 @@ router.post('/contact', async function (req, res) {
 });
 
 router.post('/api/create', async function(req, res) {
-  const dynamodb = config.createDynamoDd();
-  let message = '';
-  let data;
+  let message;
 
   try {
-    data = await dynamodb.createTable(contact.model).promise();
+    const data = await repository.create();
     console.log("Create table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせテーブルを作成しました"
   } catch (err) {
@@ -72,12 +69,11 @@ router.post('/api/create', async function(req, res) {
 });
 
 router.post('/api/save', async function(req, res) {
-  const dynamodbClient = config.createDynamoDdClient();
   let message;
 
   try {
     const info = contactParams(req);
-    const data = await dynamodbClient.put(contact.create(info)).promise();
+    const data = await repository.save(info);
     console.log("Save table. Table description JSON:", JSON.stringify(data, null, 2));
     message = "問い合わせを送信しました"
   } catch (err) {
