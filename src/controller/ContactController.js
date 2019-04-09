@@ -41,4 +41,10 @@ router.post('/api/create', async function(req, res) {
   });
 });
 
+router.post('/api/save', async function(req, res) {
+ res.send({
+   "Message": "問い合わせを送信しました"
+ })
+});
+
 module.exports = router;
