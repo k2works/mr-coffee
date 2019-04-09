@@ -51,3 +51,37 @@ describe('Test contact controller', function () {
     });
   });
 });
+
+const sinon = require('sinon');
+const service = require('../src/service/contactService');
+
+describe('Test contact service', () => {
+  before(() => {
+    AWSMock.setSDKInstance(AWS);
+    AWSMock.mock('DynamoDB', 'createTable', function (params, callback){
+      callback(null, "successfully create table in database");
+    });
+    AWSMock.mock('DynamoDB', 'deleteTable', function (params, callback){
+      callback(null, "successfully drop table in database");
+    });
+  });
+
+  it('問い合わせテーブルを作る', async () => {
+    await service.createTable();
+  });
+
+  it('問い合わせテーブルを削除する', async () => {
+    await service.dropTable();
+  });
+
+  it('問い合わせを全件取得する', async () => {
+    service.getAllContact = sinon.stub().returns({Items:[info]});
+
+    const data = await service.getAllContact();
+    test.string(data.Items[0].name).contains("テスト太郎");
+    test.string(data.Items[0].email).contains("test@test.com");
+    test.string(data.Items[0].questionnaire).contains("answer1");
+    test.string(data.Items[0].category).contains("category2");
+    test.string(data.Items[0].message).contains("問い合わせ");
+  })
+});

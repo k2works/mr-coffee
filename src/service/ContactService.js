@@ -16,3 +16,6 @@ exports.dropTable = async () => {
 exports.saveContactInfo = async (info) => {
   return await repository.save(info)
 };
+
+exports.getAllContact = async () => {
+};
