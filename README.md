@@ -34,7 +34,7 @@ touch Procfile
 #### 開発Webサーバーのセットアップ
 
 ```bash
-npm install express ejs body-parser --save
+npm install express ejs body-parser request --save
 npm install --save-dev browser-sync connect-browser-sync nodemon
 npx browser-sync init
 ```
