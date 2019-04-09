@@ -36,7 +36,8 @@
     "scripts": {
         "start": "nf start -j Procfile",
         "build": "npm-run-all aws:sam:build",
-        "test": "mocha --recursive tests",
+        "test": "npm-run-all test:*",
+        "test:server": "mocha --recursive tests",
         "test:e2e": "nightwatch tests/e2e",
         "test:e2e:package": "npm-run-all test:e2e:package:*",
         "test:e2e:package:clean": "webdriver-manager clean",
