@@ -24,7 +24,7 @@ describe('Test contact controller', function () {
     AWSMock.mock('DynamoDB', 'deleteTable', function (params, callback){
       callback(null, "successfully drop table in database");
     });
-    AWSMock.mock('DynamoDB.DocumentClient', 'put', 'message');
+    AWSMock.mock('DynamoDB.DocumentClient', 'put', info);
   });
 
   it('問い合わせテーブルを作る', function (done) {
