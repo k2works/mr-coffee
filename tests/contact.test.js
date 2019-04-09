@@ -56,21 +56,13 @@ const sinon = require('sinon');
 const service = require('../src/service/contactService');
 
 describe('Test contact service', () => {
-  before(() => {
-    AWSMock.setSDKInstance(AWS);
-    AWSMock.mock('DynamoDB', 'createTable', function (params, callback){
-      callback(null, "successfully create table in database");
-    });
-    AWSMock.mock('DynamoDB', 'deleteTable', function (params, callback){
-      callback(null, "successfully drop table in database");
-    });
-  });
-
   it('問い合わせテーブルを作る', async () => {
+    service.createTable = sinon.stub().returns();
     await service.createTable();
   });
 
   it('問い合わせテーブルを削除する', async () => {
+    service.dropTable= sinon.stub().returns();
     await service.dropTable();
   });
 
