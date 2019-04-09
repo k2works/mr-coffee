@@ -98,15 +98,31 @@ npm run aws:sam:describe
 npm run aws:sam:release:dev
 ```
 
+#### データベースのセットアップ
+
+```bash
+npm install --save-dev aws-sdk-mock
+npm run db:setup
+```
+
 **[⬆ back to top](#構成)**
 
 ### 運用
+
+#### データベースの起動と停止
+
+```bash
+npm run db:start
+npm run db:show
+npm run db:stop
+```
 
 #### アプリケーションの廃棄
 
 ```bash
 npm run aws:sam:destroy
 npm run aws:s3:destroy
+npm run db:destroy
 ```
 
 **[⬆ back to top](#構成)**
