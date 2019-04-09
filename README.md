@@ -49,7 +49,7 @@ AWS SAM CLI のインストールおよびアップデート
  pip install --user --upgrade aws-sam-cli
  ```
  
- ### 開発　テストのセットアップ
+ #### 開発テストのセットアップ
  E2Eテストのセットアップ
  
 ```bash
@@ -68,7 +68,7 @@ touch nightwatch.json
 npm run test:e2e
 ```
 
-### SBAdminの導入
+#### SBAdminの導入
  
 ```bash
 npm install startbootstrap-sb-admin-2 --save-dev
