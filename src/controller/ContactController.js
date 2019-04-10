@@ -56,6 +56,23 @@ router.post('/api/drop', async function(req, res) {
   });
 });
 
+router.post('/api/seed', async function(req, res) {
+  let message;
+
+  try {
+    const data = await service.seedData();
+    console.log("Seed data. Table description JSON:", JSON.stringify(data, null, 2));
+    message = "ダミーデータを登録しました"
+  } catch (err) {
+    console.error("Unable to seed data. Error JSON:", JSON.stringify(err, null, 2));
+    message = "ダミーデータを登録できませんでした"
+  }
+
+  res.send({
+    "Message": message
+  });
+});
+
 router.post('/api/save', async function(req, res) {
   let message;
 

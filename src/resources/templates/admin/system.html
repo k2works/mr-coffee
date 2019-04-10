@@ -272,56 +272,28 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+          <div id="apiUrl" hidden><%= apiUrl %></div>
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Contacts</h1>
-          <p class="mb-4"><%= message %></p>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">問い合わせ一覧</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th hidden>ID</th>
-                      <th>お名前</th>
-                      <th>メールアドレス</th>
-                      <th>Mr.M COFFEEを知ったきっかけ</th>
-                      <th>お問い合わせ</th>
-                      <th>お問い合わせ内容</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th hidden>ID</th>
-                      <th>お名前</th>
-                      <th>メールアドレス</th>
-                      <th>Mr.M COFFEEを知ったきっかけ</th>
-                      <th>お問い合わせ</th>
-                      <th>お問い合わせ内容</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                  <% data.Items.forEach((item) => { %>
-                  <tr>
-                    <td hidden><%= item.id %></td>
-                    <td><%= item.name %></td>
-                    <td><%= item.email %></td>
-                    <td><%= item.questionnaire %></td>
-                    <td><%= item.category %></td>
-                    <td><%= item.message %></td>
-                  </tr>
-                  <% }) %>
-                  </tbody>
-                </table>
+          <h1 class="h3 mb-2 text-gray-800">System</h1>
+          <div class="result"></div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-5">
+                <div class="card-body d-flex justify-content-between">
+                  <h5 class="card-title">問い合わせテーブル</h5>
+                  <button class="btn btn-primary" onclick="createTable()">
+                    作成
+                  </button>
+                  <button class="btn btn-danger" onclick="dropTable()">
+                    削除
+                  </button>
+                  <button class="btn btn-success" onclick="seedData()">
+                    ダミーデータ生成
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
         <!-- /.container-fluid -->
 
@@ -388,6 +360,49 @@
   <script id="__bs_script__">//<![CDATA[
   document.write("<script async src='http://HOST:3002/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
   //]]></script>
+
+  <script>
+    function createTable() {
+      const baseUrl = document.querySelector('#apiUrl').innerHTML;
+      const apiUrl = `${baseUrl}/api/create`;
+      apiCall(apiUrl, 'POST');
+    }
+
+    function dropTable() {
+      const baseUrl = document.querySelector('#apiUrl').innerHTML;
+      const apiUrl = `${baseUrl}/api/drop`;
+      apiCall(apiUrl, 'POST');
+    }
+
+    function seedData() {
+      const baseUrl = document.querySelector('#apiUrl').innerHTML;
+      const apiUrl = `${baseUrl}/api/seed`;
+      apiCall(apiUrl, 'POST');
+    }
+
+    function apiCall(url, method) {
+      function renderResult(data) {
+        console.log(data);
+        document.querySelector('.result').innerHTML = data.Message;
+      }
+
+      $.ajax({
+        url: url,
+        type: method,
+        data: {}
+      })
+              .done((data) => {
+                $('#result').html(data);
+                renderResult(data);
+              })
+              .fail((data) => {
+                $('#result').html(data);
+                renderResult(data);
+              })
+              .always((data) => {
+              });
+    }
+  </script>
 </body>
 
 </html>
