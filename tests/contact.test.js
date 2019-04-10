@@ -7,7 +7,7 @@ const request = supertest(app);
 const AWS = require("aws-sdk");
 const AWSMock = require('aws-sdk-mock');
 const sinon = require('sinon');
-const service = require('../src/service/contactService');
+const service = require('../src/service/ContactService');
 
 
 describe('Test Contact', function () {
