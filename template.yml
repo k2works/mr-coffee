@@ -17,7 +17,7 @@ Parameters:
   ApiUrl:
     Type: String
     Description: Default api url
-    Default: 'https://mr-mcoffee.hiroshima-arc.org/'
+    Default: 'https://mr-mcoffee.hiroshima-arc.org'
 
 Globals:
   Function:
