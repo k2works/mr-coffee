@@ -35,7 +35,7 @@ touch Procfile
 
 ```bash
 npm install express ejs body-parser request --save
-npm install --save-dev browser-sync connect-browser-sync nodemon sinon
+npm install --save-dev browser-sync connect-browser-sync nodemon sinon faker
 npx browser-sync init
 ```
 
