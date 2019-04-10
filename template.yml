@@ -17,7 +17,7 @@ Parameters:
   ApiUrl:
     Type: String
     Description: Default api url
-    Default: 'http://localhost:5000'
+    Default: 'https://yj3ltbcerf.execute-api.ap-northeast-1.amazonaws.com/Prod/'
 
 Globals:
   Function:
