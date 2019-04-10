@@ -34,8 +34,8 @@ touch Procfile
 #### 開発Webサーバーのセットアップ
 
 ```bash
-npm install express ejs body-parser --save
-npm install --save-dev browser-sync connect-browser-sync nodemon
+npm install express ejs body-parser request --save
+npm install --save-dev browser-sync connect-browser-sync nodemon sinon faker
 npx browser-sync init
 ```
 
@@ -49,7 +49,7 @@ AWS SAM CLI のインストールおよびアップデート
  pip install --user --upgrade aws-sam-cli
  ```
  
- ### 開発　テストのセットアップ
+ #### 開発テストのセットアップ
  E2Eテストのセットアップ
  
 ```bash
@@ -67,7 +67,14 @@ touch nightwatch.json
 ```bash
 npm run test:e2e
 ```
+
+#### SBAdminの導入
  
+```bash
+npm install startbootstrap-sb-admin-2 --save-dev
+cp -r node_modules/startbootstrap-sb-admin-2 src/resources/templates/admin
+```
+
 **[⬆ back to top](#構成)**
 
 ### 配置
@@ -98,15 +105,32 @@ npm run aws:sam:describe
 npm run aws:sam:release:dev
 ```
 
+#### データベースのセットアップ
+
+```bash
+npm install --save uuid
+npm install --save-dev aws-sdk-mock
+npm run db:setup
+```
+
 **[⬆ back to top](#構成)**
 
 ### 運用
+
+#### データベースの起動と停止
+
+```bash
+npm run db:start
+npm run db:show
+npm run db:stop
+```
 
 #### アプリケーションの廃棄
 
 ```bash
 npm run aws:sam:destroy
 npm run aws:s3:destroy
+npm run db:destroy
 ```
 
 **[⬆ back to top](#構成)**

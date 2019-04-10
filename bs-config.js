@@ -26,11 +26,8 @@ module.exports = {
     "watchOptions": {
         "ignoreInitial": true
     },
-    "server": {
-        baseDir: "./src/resources/templates",
-        index: "index.html"
-    },
-    "proxy": false,
+    "server": false,
+    "proxy": "localhost:5000",
     "port": 3000,
     "middleware": false,
     "serveStatic": [],

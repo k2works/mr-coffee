@@ -14,6 +14,10 @@ Parameters:
     Type: String
     Description: The name for a project pipeline stage, such as Staging or Prod, for which resources are provisioned and deployed.
     Default: ''
+  ApiUrl:
+    Type: String
+    Description: Default api url
+    Default: 'https://yj3ltbcerf.execute-api.ap-northeast-1.amazonaws.com/Prod/'
 
 Globals:
   Function:
@@ -32,6 +36,7 @@ Resources:
       Environment:
         Variables:
           NODE_ENV: production
+          API_URL: !Ref ApiUrl
       Role:
         Fn::GetAtt:
         - LambdaExecutionRole
@@ -56,6 +61,7 @@ Resources:
       Path: /
       ManagedPolicyArns:
         -  arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        -  arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess
       PermissionsBoundary: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:policy/CodeStar_${ProjectId}_PermissionsBoundary'
 
 Outputs:
