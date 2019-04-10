@@ -77,6 +77,9 @@
         "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
         "aws:sam:release:dev": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
         "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",
-        "aws:codebuild:local": "docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e \"IMAGE_NAME=aws/codebuild/nodejs:8.11.0\" -e \"ARTIFACTS=/tmp\" -e \"SOURCE=$PWD\" amazon/aws-codebuild-local"
+        "aws:codebuild:local": "docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e \"IMAGE_NAME=aws/codebuild/nodejs:8.11.0\" -e \"ARTIFACTS=/tmp\" -e \"SOURCE=$PWD\" amazon/aws-codebuild-local",
+        "docs:slide:server": "cd docs/PITCHME; browser-sync start --server --files '**/*'",
+        "docs:slide:build": "cpx docs/PITCHME/assets/md/PITCHME.md .",
+        "docs:slide:watch": "watch 'npm run docs:slide:build' ./docs --flilter=*.md"
     }
 }

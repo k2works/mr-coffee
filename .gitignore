@@ -5,3 +5,5 @@ mr-mcoffee.iml
 tests/e2e/logs
 tests/e2e/reports
 tests/e2e/screenshots
+
+docs/PITCHME
