@@ -40,7 +40,7 @@
         "chrome_driver_ver": "73.0.3683.103",
         "local_network": "lambda-local",
         "local_db": "dynamodb",
-        "api_url": "https://pbbhpvjgyl.execute-api.ap-northeast-1.amazonaws.com/Prod"
+        "api_url": "https://dev-mr-mcoffee.hiroshima-arc.org"
     },
     "scripts": {
         "start": "nf start -j Procfile",
@@ -54,7 +54,7 @@
         "test:e2e:package:chrome": "webdriver-manager update --versions.chrome $npm_package_config_chrome_driver_ver",
         "watch": "watch 'npm run build' ./src ",
         "app:web": "browser-sync start --config bs-config.js",
-        "app:api": "sam local start-api --host 0.0.0.0 --port 4000 --region $npm_package_config_region",
+        "app:api": "sam local start-api --host 0.0.0.0 --port 4000 --region $npm_package_config_region --env-vars env.json",
         "app:server": "PORT=5000 nodemon --inspect server.js",
         "db:setup": "npm-run-all db:setup:*",
         "db:setup:network": "docker network create $npm_package_config_local_network",
@@ -77,6 +77,9 @@
         "aws:sam:describe": "aws --region $npm_package_config_region cloudformation describe-stacks --stack-name $npm_package_config_stack_name",
         "aws:sam:release:dev": "npm-run-all test aws:sam:build aws:sam:package aws:sam:deploy aws:sam:describe",
         "aws:sam:destroy": "aws --region $npm_package_config_region cloudformation delete-stack --stack-name $npm_package_config_stack_name",
-        "aws:codebuild:local": "docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e \"IMAGE_NAME=aws/codebuild/nodejs:8.11.0\" -e \"ARTIFACTS=/tmp\" -e \"SOURCE=$PWD\" amazon/aws-codebuild-local"
+        "aws:codebuild:local": "docker run -it -v /var/run/docker.sock:/var/run/docker.sock -e \"IMAGE_NAME=aws/codebuild/nodejs:8.11.0\" -e \"ARTIFACTS=/tmp\" -e \"SOURCE=$PWD\" amazon/aws-codebuild-local",
+        "docs:slide:server": "cd docs/PITCHME; browser-sync start --server --files '**/*'",
+        "docs:slide:build": "cpx docs/PITCHME/assets/md/PITCHME.md .",
+        "docs:slide:watch": "watch 'npm run docs:slide:build' ./docs --flilter=*.md"
     }
 }
